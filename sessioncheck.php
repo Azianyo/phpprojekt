@@ -1,0 +1,20 @@
+<?
+	if(isset($_SESSION['nazwisko'])){
+		$kwerenda = "select email, haslo, nazwisko, uprawnienia from nazwiska ";
+		$kwerenda.= "where nazwisko = \"". $_SESSION['nazwisko']. "\""; //"\" AND haslo = \"". md5($_SESSION['haslo']). "\"";
+
+		echo $kwerenda . "<br><br>";
+	
+
+	$wynik = mysqli_query($mysqli, $kwerenda)
+	or die('Blad zapytania');
+	}
+		
+		if($wynik){
+			$wiersz = mysqli_fetch_assoc($wynik);
+			echo mysqli_fetch_assoc($wynik);
+			$has = $wiersz['haslo'];
+			echo "Zakodowane przez md5 haslo z bazy = $has<br>";
+		}
+
+?>
