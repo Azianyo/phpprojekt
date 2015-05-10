@@ -19,7 +19,7 @@
 		}
 		$query .= "`id`='" . $_POST['ID'] ."';";
 		$sukces = mysqli_query($mysqli,$query)
-		or die("Nie udało się pobrać zawartości tabeli");
+		or die('Błąd zapytania' . mysqli_error($mysqli));
 
 		
 		if($sukces){

@@ -48,8 +48,8 @@
 			$query = "SELECT * FROM `". $table ."` WHERE 1";
 			echo "<h1>". strtoupper($table) ."</h1>";
 			$sukces = mysqli_query($mysqli,$query)
-			or die("Nie udało się pobrać zawartości tabeli " . $table);
-
+			or die('Błąd zapytania' . mysqli_error($mysqli));
+			
 			if($sukces){
 				$row = mysqli_fetch_assoc($sukces);
 				foreach($row as $key => $obj){
