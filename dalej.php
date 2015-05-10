@@ -8,8 +8,7 @@ if(isset($_SESSION['login'])){
 		
 		echo "OK " . $_SESSION['login'];
 		
-		$button="<form action=\"wyloguj.php\" method=
-\"POST\">";
+		$button="<form action=\"wyloguj.php\" method=\"POST\">";
 		$button.= "<input type = \"submit\" value=\"Wyloguj\"/>";
 		$button.= "</form>";
 

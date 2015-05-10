@@ -25,3 +25,11 @@
 	}
 	//if(isset($_POST['HASLO']) && isset($_POST['NAZWISKO']) && isset($_POST['EMAIL']))
 ?>
+
+<form action="log2.php">
+<input type="submit" value="Wróć" />
+</form>
+
+<?
+	include ("stopka.php");
+?>

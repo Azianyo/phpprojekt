@@ -26,9 +26,7 @@
 	Uprawnienia: <input type="text" name="UPRAWNIENIA" /><br />
 	<input type="submit" value="Dodaj rekord" />
 	</form>
-	<form action="log2.php">
-	<input type="submit" value="Wróć" />
-	</form>
+
 <?
 	include ("stopka.php");
 ?>
