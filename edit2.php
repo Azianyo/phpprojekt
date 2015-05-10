@@ -5,15 +5,28 @@
 	include("sessioncheck.php");
 
 	if((isset($_SESSION['login']))&&(md5($_SESSION['login'])==$wiersz['haslo'])&&($_SESSION['nazwisko']==$wiersz['nazwisko'])&&($wiersz['uprawnienia'] == "1")){
+		$query = "UPDATE `". $_POST['TABELA'] . "` SET `";
+		foreach($_POST as $key => $obj) {
+			echo end($_POST);
+			if(($key == 'TABELA') || ($key == 'ID')) {
 
-		$query = "UPDATE `nazwiska` SET `nazwisko`='". $_POST['NAZWISKO']."',`email`='".$_POST['EMAIL']."',`uprawnienia`='" . $_POST['UPRAWNIENIA']."' WHERE ";
+			}
+			else if (end($_POST) == $obj){
+				$query.= $key . "`='". $obj. "' WHERE ";
+			}
+			else {
+				$query.= $key . "`='". $obj."',`";
+			}
+		}
 		$query .= "`id`='" . $_POST['ID'] ."';";
-		$sukces = mysqli_query($mysqli,$query);
+		echo $query;
+		$sukces = mysqli_query($mysqli,$query)
+		or die("Nie udało się pobrać zawartości tabeli");
+
 		
 		if($sukces){
 			echo "Edytowano rekord:" . $query;
 		}
-		//or die("Nie udało się pobrać zawartości tabeli");
 	?>
 
 	<form action="edit.php">

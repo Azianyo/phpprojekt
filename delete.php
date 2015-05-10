@@ -4,7 +4,6 @@
 	include("polacz.php");
 	include("sessioncheck.php");
 
-	echo "Miłorząb";
 	if((isset($_SESSION['login']))&&(md5($_SESSION['login'])==$wiersz['haslo'])&&($_SESSION['nazwisko']==$wiersz['nazwisko'])&&($wiersz['uprawnienia'] == "1")){
 
 		$query = "SELECT * FROM `nazwiska` WHERE 1";
@@ -27,7 +26,6 @@
 				echo $forma;	
 			}
 		}
-		//if(isset($_POST['HASLO']) && isset($_POST['NAZWISKO']) && isset($_POST['EMAIL']))
 
 		?>
 
