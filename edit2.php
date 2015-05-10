@@ -7,7 +7,6 @@
 	if((isset($_SESSION['login']))&&(md5($_SESSION['login'])==$wiersz['haslo'])&&($_SESSION['nazwisko']==$wiersz['nazwisko'])&&($wiersz['uprawnienia'] == "1")){
 		$query = "UPDATE `". $_POST['TABELA'] . "` SET `";
 		foreach($_POST as $key => $obj) {
-			echo end($_POST);
 			if(($key == 'TABELA') || ($key == 'ID')) {
 
 			}
@@ -19,7 +18,6 @@
 			}
 		}
 		$query .= "`id`='" . $_POST['ID'] ."';";
-		echo $query;
 		$sukces = mysqli_query($mysqli,$query)
 		or die("Nie udało się pobrać zawartości tabeli");
 
