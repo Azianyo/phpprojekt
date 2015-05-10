@@ -30,11 +30,8 @@
 						$add.= $val . "', '";
 					}
 				}
-				//"nazwisko`, `email`, `haslo`, `uprawnienia`) VALUES (";
-			//$add .= "'" . $_POST['NAZWISKO'] . "'" . ",". "'" . $_POST['EMAIL'] . "'" . ","
-			//. "'" . md5($_POST['HASLO']) . "'" . ",". "'" . $_POST['UPRAWNIENIA'] . "'". ")";
 			$wynik = mysqli_query($mysqli,$add)
-			or die($add . mysqli_error($mysqli));
+			or die("Bład zapytania: " . mysqli_error($mysqli));
 			if($wynik) {
 				echo "Dodano rekord: " . $add . "<br>";
 			}
@@ -52,7 +49,7 @@
 			echo "<h1>". strtoupper($table) ."</h1>";
 			$sukces = mysqli_query($mysqli,$query)
 			or die("Nie udało się pobrać zawartości tabeli " . $table);
-			echo $query;
+
 			if($sukces){
 				$row = mysqli_fetch_assoc($sukces);
 				foreach($row as $key => $obj){
