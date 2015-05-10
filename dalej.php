@@ -10,7 +10,7 @@ if(isset($_SESSION['login'])){
 		
 		$button="<form action=\"wyloguj.php\" method=
 \"POST\">";
-		$button.= "<input type = \"submit\" value=\"logout\"/>";
+		$button.= "<input type = \"submit\" value=\"Wyloguj\"/>";
 		$button.= "</form>";
 
 		echo $button;

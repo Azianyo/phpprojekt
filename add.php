@@ -9,7 +9,7 @@
 		$add .= "'" . $_POST['NAZWISKO'] . "'" . ",". "'" . $_POST['EMAIL'] . "'" . ","
 		. "'" . md5($_POST['HASLO']) . "'" . ",". "'" . $_POST['UPRAWNIENIA'] . "'". ")";
 		$wynik = mysqli_query($mysqli,$add)
-		or die("Błąd zapytania");
+		or die(mysql_error($mysqli));
 		if($wynik) {
 			echo "Dodano rekord: " . $add . "<br>";
 		}

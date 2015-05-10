@@ -18,7 +18,7 @@
 		
 	if ((!isset($_POST['email'])) && (isset($_SESSION))){
 		$kwerenda = "select email, haslo, nazwisko, uprawnienia from nazwiska ";
-		$kwerenda.= "where nazwisko = \"". $_SESSION['nazwisko']. "\" AND haslo = \"". md5($_SESSION['haslo']). "\"";
+		$kwerenda.= "where nazwisko = \"". $_SESSION['nazwisko']. "\""; //"\" AND haslo = \"". md5($_SESSION['haslo']). "\"";
 	}
 	else {
 
@@ -38,8 +38,7 @@
 		}
 				
 		echo "========================================<br>";
-		echo $wiersz['haslo'];		
-		if(!((md5($_SESSION['login'])==$wiersz['haslo'])&&($_SESSION['nazwisko']==$wiersz['nazwisko']))) echo "zle";
+
 		
 		if((isset($has)) && md5($_POST['haslo']) == $has){
 			echo"<br>Logujacy podal poprawne dane <br>";
@@ -84,7 +83,12 @@
 				$forma.= "<input type=\"submit\" value=\"Kontynuacja sesji\" />";
 				$forma.="</form>";
 				
+						$button="<form action=\"wyloguj.php\" method=\"POST\">";
+						$button.= "<input type = \"submit\" value=\"Wyloguj\"/>";
+						$button.= "</form>";
+
 				echo $forma;
+				echo $button;
 			
 			}
 		if((isset($_POST['email']))&&(!((isset($has)) && md5($_POST['haslo']) == $has))){
