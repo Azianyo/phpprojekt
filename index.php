@@ -16,6 +16,11 @@ if(isset($_SESSION['login'])){
 			<input type = "submit" value = "loguj" />
 		</form>
 		
+		<form action="register.php">
+			<input type="submit" value="Zarejestruj się" />
+		</form>
+
 		<?
+
 		include("stopka/php");
 		?>

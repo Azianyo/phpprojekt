@@ -7,6 +7,7 @@
 	echo $_POST['haslo'] . "<br>";
 	echo isset($_POST['email']);
 	print_r($_POST);
+	
 	if(isset($_SESSION)){
 		echo "Zmienne sesji:<br>";
 		print_r($_SESSION);
@@ -50,14 +51,14 @@
 				print_r($wiersz);
 				switch($wiersz['uprawnienia']){
 					case -1:
-						echo "Siema";
+						echo "Pacjent";
 						echo "<br>";
 						break;
 					case 0:
-						echo "Nie";
+						echo "Lekarz";
 						break;
 					case 1:
-						echo "hej admin hej<br>";
+						echo "Admin<br>";
 						
 						$forma ="<form action = \"add.php\" method=\"POST\">";
 						$forma.= "<input type=\"submit\" value=\"Dodaj rekord\" />";
