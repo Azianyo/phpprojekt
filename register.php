@@ -23,7 +23,10 @@
 			or die("Błąd zapytania:". mysqli_error($mysqli));
 
 			if($wynik){
-				echo "Użytkownik został poprawnie dodany do bazy";
+				echo "Zostałeś poprawnie zarejestrowany";
+				echo "<form action=\"index.php\">
+					<input type=\"submit\" value=\"Zaloguj się\" />
+				</form>";
 			}
 		}
 		else {

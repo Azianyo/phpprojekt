@@ -13,7 +13,7 @@ if(isset($_SESSION['login'])){
 		<form action = "log2.php" method = "POST">
 			e-mail: <input type = "text" name = "email" /><br>
 			hasło: <input type = "password" name ="haslo" /><br>
-			<input type = "submit" value = "loguj" />
+			<input type = "submit" value = "Zaloguj" />
 		</form>
 		
 		<form action="register.php">
