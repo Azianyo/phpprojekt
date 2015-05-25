@@ -13,13 +13,49 @@
 		$next = 0;
 	}
 
+	if(!isset($_POST['next'])&& isset($_POST['data'])) {
+		 $first = new DateTime($_POST['data'] . " " . $_POST['godzina_poczatek']);
+		 $second = new DateTime($_POST['data'] . " " . $_POST['godzina_koniec']);
+		 $diff = $first->diff($second);
+		if(($diff->h)>=2){//date($_POST['godzina_poczatek'] $_POST['godzina_koniec']){
+			$add = "INSERT INTO `dzierzawy`(`";
+				foreach($_POST as $key => $val){
+					if(end($_POST) == $val){
+						$add.= $key . "`) VALUES ('";
+					}
+					else {
+						$add.= $key . "`, `";
+					}
+				}
+				foreach($_POST as $key => $val){
+					if(end($_POST) == $val){
+						$add.= $val . "')";
+					}
+					else {
+						$add.= $val . "', '";
+					}
+				}
+			$wynik = mysqli_query($mysqli,$add)
+			or die("Bład zapytania: " . mysqli_error($mysqli));
+			if($wynik) {
+				echo "Dodano rekord: " . $add . "<br>";
+			}
+			else {
+				echo "Dodanie rekordu nie powiodło się <br>";
+			}
+		}
+		else {
+			echo "Gabinet można wydzierżawić minimalnie na 2 godziny!";
+		}
+	}
+
 
 	for($i=0; $i<7;$i++){
 		$nextWeek = time() + ($i * 24 * 60 * 60) + ($_POST['next']*7 * 24 * 60 * 60);
-		$weekday = date("D", $nextWeek);
+		$weekday = date("D: Y-m-d", $nextWeek);
 		$date = date('Y-m-d',$nextWeek);
 
-		$query = "SELECT * FROM `wizyty` WHERE data = '".$date ."'";
+		$query = "SELECT * FROM `dzierzawy` WHERE data = '".$date ."'";
 		$sukces = mysqli_query($mysqli,$query)
 		or die("Błąd: " . mysqli_error($mysqli));
 
@@ -54,9 +90,34 @@
 	</form>
 
 		<?
+
+		echo "Dodaj wizytę:";
+		$forma = "<form action=\"calendar.php\" method=\"POST\">";
+		$query = "SELECT * FROM `dzierzawy` WHERE 1";
+		$sukces = mysqli_query($mysqli,$query)
+			or die('Błąd zapytania' . mysqli_error($mysqli));
+			
+			if($sukces){
+				$row = mysqli_fetch_assoc($sukces);
+				foreach($row as $key => $obj){
+					if($key == 'id'){}
+					else if($key == 'data') {
+						$forma.= $key . ": <input type=\"date\" name=\"". $key ."\" size=\"20\" maxlength=\"30\" /><br>";
+
+					}
+					else {
+						$forma.= $key . ": <input type=\"text\" name=\"". $key ."\" size=\"20\" maxlength=\"30\" /><br>";
+					}
+				}
+			}
+		$forma.= "<input type=\"submit\" value=\"Dodaj rekord\" />";
+		$forma.="</form>";
+		echo $forma;
+
+
 	}
 	else {
 		echo "Nie masz uprawnień do tego skryptu";
 	}
 	include ("stopka.php");
-?>?>
+?>

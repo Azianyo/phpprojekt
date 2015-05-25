@@ -7,7 +7,7 @@
 	echo $_POST['haslo'] . "<br>";
 	echo isset($_POST['email']);
 	print_r($_POST);
-	
+
 	if(isset($_SESSION)){
 		echo "Zmienne sesji:<br>";
 		print_r($_SESSION);
@@ -72,9 +72,14 @@
 						$forma2.= "<input type=\"submit\" value=\"Usuwaj rekordy\" />";
 						$forma2.="</form>";
 
+						$forma2 ="<form action = \"calendar.php\">";
+						$forma2.= "<input type=\"submit\" value=\"Przeglądaj kalendarz\" />";
+						$forma2.="</form>";
+
 						echo $forma;
 						echo $forma1;
 						echo $forma2;
+						echo $forma3;
 						break;
 					default:
 						echo "Coś poszło nie tak";
