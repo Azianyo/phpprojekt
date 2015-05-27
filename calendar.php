@@ -1,4 +1,4 @@
-<?
+<?php
 	session_start();
 	include("nagl.php");
 	include("polacz.php");
@@ -13,39 +13,61 @@
 		$next = 0;
 	}
 
+
 	if(!isset($_POST['next'])&& isset($_POST['data'])) {
 		 $first = new DateTime($_POST['data'] . " " . $_POST['godzina_poczatek']);
 		 $second = new DateTime($_POST['data'] . " " . $_POST['godzina_koniec']);
 		 $diff = $first->diff($second);
-		if(($diff->h)>=2){//date($_POST['godzina_poczatek'] $_POST['godzina_koniec']){
-			$add = "INSERT INTO `dzierzawy`(`";
-				foreach($_POST as $key => $val){
-					if(end($_POST) == $val){
-						$add.= $key . "`) VALUES ('";
+
+
+		 $query = "SELECT FROM 'dzierzawy' WHERE `data`='" . $_POST['data'] . "';";
+
+		 echo $query;
+
+		 $result = mysqli_query($mysqli,$query);
+
+		 if($result){
+		 	while($row = mysqli_fetch_assoc($result)){
+		 		$hour_database = new DateTime($_row['data'] . " " . $_row['godzina_poczatek']);
+		 		$hour_post = new DateTime($_POST['data'] . " " . $_POST['godzina_poczatek']);
+		 		
+		 	}
+
+		 }
+		if($_POST['godzina_poczatek']<$_POST['godzina_koniec']){
+			if((($diff->h)>=2) && $_POST['godzina_poczatek']){
+				$add = "INSERT INTO `dzierzawy`(`";
+					foreach($_POST as $key => $val){
+						if(end($_POST) == $val){
+							$add.= $key . "`) VALUES ('";
+						}
+						else {
+							$add.= $key . "`, `";
+						}
 					}
-					else {
-						$add.= $key . "`, `";
+					foreach($_POST as $key => $val){
+						if(end($_POST) == $val){
+							$add.= $val . "')";
+						}
+						else {
+							$add.= $val . "', '";
+						}
 					}
+				$wynik = mysqli_query($mysqli,$add)
+				or die("Bład zapytania: " . mysqli_error($mysqli));
+				if($wynik) {
+					echo "Dodano rekord: " . $add . "<br>";
 				}
-				foreach($_POST as $key => $val){
-					if(end($_POST) == $val){
-						$add.= $val . "')";
-					}
-					else {
-						$add.= $val . "', '";
-					}
+				else {
+					echo "Dodanie rekordu nie powiodło się <br>";
 				}
-			$wynik = mysqli_query($mysqli,$add)
-			or die("Bład zapytania: " . mysqli_error($mysqli));
-			if($wynik) {
-				echo "Dodano rekord: " . $add . "<br>";
 			}
 			else {
-				echo "Dodanie rekordu nie powiodło się <br>";
+				echo "Gabinet można wydzierżawić minimalnie na 2 godziny!";
 			}
 		}
 		else {
-			echo "Gabinet można wydzierżawić minimalnie na 2 godziny!";
+			echo "Czas dzierżawy nie może być ujemny!";
 		}
 	}
 
@@ -89,7 +111,7 @@
 	<input type="submit" value="Następny tydzień" />
 	</form>
 
-		<?
+		<?php
 
 		echo "Dodaj wizytę:";
 		$forma = "<form action=\"calendar.php\" method=\"POST\">";
