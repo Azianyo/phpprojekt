@@ -83,7 +83,7 @@
 	}
 
 
-	$form4 ="<form action = \"wolne.php\">";
+	$form4 ="<form action = \"wolne.php\" method=\"POST\">";
 	foreach($id_gabinetow as $key => $item) {	
 		$form4.="<input type=\"hidden\" name =\"gabinet". $key ."\" value=\"". $item ."\" >";
 	}
