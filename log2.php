@@ -56,6 +56,16 @@
 						break;
 					case 0:
 						echo "Lekarz";
+						$forma4 ="<form action = \"wybor_gabinetu.php\">";
+						$forma4.= "<input type=\"submit\" value=\"Sprawdź dostępnosć gabinetów\" />";
+						$forma4.="</form>";
+
+						$forma3 ="<form action = \"wolne.php\">";
+						$forma3.= "<input type=\"submit\" value=\"Kiedy gabinety są zajęte\" />";
+						$forma3.="</form>";
+
+						echo $forma4;
+
 						break;
 					case 1:
 						echo "Admin<br>";
@@ -72,9 +82,10 @@
 						$forma2.= "<input type=\"submit\" value=\"Usuwaj rekordy\" />";
 						$forma2.="</form>";
 
-						$forma2 ="<form action = \"calendar.php\">";
-						$forma2.= "<input type=\"submit\" value=\"Przeglądaj kalendarz\" />";
-						$forma2.="</form>";
+						$forma3 ="<form action = \"calendar.php\">";
+						$forma3.= "<input type=\"submit\" value=\"Przeglądaj kalendarz\" />";
+						$forma3.="</form>";
+
 
 						echo $forma;
 						echo $forma1;

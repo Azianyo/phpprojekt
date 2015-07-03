@@ -1,6 +1,6 @@
 <?
 	if(isset($_SESSION['nazwisko'])){
-		$kwerenda = "select email, haslo, nazwisko, uprawnienia from nazwiska ";
+		$kwerenda = "select id, email, haslo, nazwisko, uprawnienia from nazwiska ";
 		$kwerenda.= "where nazwisko = \"". $_SESSION['nazwisko']. "\""; //"\" AND haslo = \"". md5($_SESSION['haslo']). "\"";
 
 		//echo $kwerenda . "<br><br>";

@@ -22,7 +22,7 @@
 			$wynik = mysqli_query($mysqli,$query)
 			or die("Błąd zapytania:". mysqli_error($mysqli));
 
-			if($wynik){
+			if($wynik){ 
 				echo "Zostałeś poprawnie zarejestrowany";
 				echo "<form action=\"index.php\">
 					<input type=\"submit\" value=\"Zaloguj się\" />

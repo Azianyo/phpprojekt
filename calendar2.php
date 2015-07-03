@@ -4,8 +4,7 @@
 	include("polacz.php");
 	include("sessioncheck.php");
 
-	if((isset($_SESSION['login']))&&(md5($_SESSION['login'])==$wiersz['haslo'])&&($_SESSION['nazwisko']==$wiersz['nazwisko'])&&
-		(($wiersz['uprawnienia'] == "1")||($wiersz['uprawnienia'] == "0"))){
+	if((isset($_SESSION['login']))&&(md5($_SESSION['login'])==$wiersz['haslo'])&&($_SESSION['nazwisko']==$wiersz['nazwisko'])&&($wiersz['uprawnienia'] == "1")){
 	date_default_timezone_set('UTC');
 
 	$next = $_POST['next'];  
@@ -29,7 +28,7 @@
 			if(strtotime("19:00:00") > $time_poczatek && $time_poczatek > strtotime("07:00:00") && strtotime("09:00:00") < $time_koniec && $time_koniec && strtotime("21:00:00")){
 
 			/*if((($diff->h)>=2) && $_POST['godzina_poczatek']){*/
-				$add = "INSERT INTO `dzierzawy`(`";
+				$add = "INSERT INTO `wizyty`(`";
 					foreach($_POST as $key => $val){
 						if(end($_POST) == $val){
 							$add.= $key . "`) VALUES ('";
@@ -77,7 +76,7 @@
 		$weekday = date("D: Y-m-d", $nextWeek);
 		$date = date('Y-m-d',$nextWeek);
 
-		$query = "SELECT * FROM `dzierzawy` WHERE data = '".$date ."'";
+		$query = "SELECT * FROM `wizyty` WHERE data = '".$date ."'";
 		$sukces = mysqli_query($mysqli,$query)
 		or die("Błąd: " . mysqli_error($mysqli));
 
@@ -115,7 +114,7 @@
 
 		echo "Dodaj wizytę:";
 		$forma = "<form action=\"calendar.php\" method=\"POST\">";
-		$query = "SELECT * FROM `dzierzawy` WHERE 1";
+		$query = "SELECT * FROM `wizyty` WHERE 1";
 		$sukces = mysqli_query($mysqli,$query)
 			or die('Błąd zapytania' . mysqli_error($mysqli));
 			
