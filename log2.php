@@ -53,6 +53,7 @@
 					case -1:
 						echo "Pacjent";
 						echo "<br>";
+						include("panel_pacjenta.php");
 						break;
 					case 0:
 						echo "Lekarz";
