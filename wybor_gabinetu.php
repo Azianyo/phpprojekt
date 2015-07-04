@@ -6,8 +6,6 @@
 
 	if((isset($_SESSION['login']))&&(md5($_SESSION['login'])==$wiersz['haslo'])&&($_SESSION['nazwisko']==$wiersz['nazwisko'])&&($wiersz['uprawnienia'] == "0")){
 
-	print_r($wiersz);
-
 	function gabinety($tab, $mysqli){
 
 		$kwerenda = "select * from lekarze ";
