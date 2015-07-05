@@ -73,7 +73,7 @@
 
 
 	for($i=0; $i<7;$i++){
-		$nextWeek = time() + ($i * 24 * 60 * 60) + ($_POST['next']*7 * 24 * 60 * 60);
+		$nextWeek = time() + ($i * 24 * 60 * 60) + ($_POST['next']* 7 * 24 * 60 * 60);
 		$weekday = date("D: Y-m-d", $nextWeek);
 		$date = date('Y-m-d',$nextWeek);
 
