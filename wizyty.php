@@ -30,9 +30,10 @@
 				$datetime = new DateTime($string);
 				if($datetime>$now){
 
-					$query2 = "select imie, nazwisko from lekarze where id=". $row['id_lekarze'];
+					$query2 = "select imie, nazwisko from lekarze where id=\"". $row['id_lekarza']
+					."\"";
 					$wynik2 = mysqli_query($mysqli,$query2)
-					or die("Błąd zapytania:". mysqli_error($mysqli));
+					or die("Błąd zapytaniaa:". mysqli_error($mysqli));
 					
 					if($wynik2){ 
 						$row2 = mysqli_fetch_assoc($wynik2);

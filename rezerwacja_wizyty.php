@@ -4,10 +4,13 @@
 	include("polacz.php");
 	include("sessioncheck.php");
 
-	if((isset($_SESSION['login']))&&(md5($_SESSION['login'])==$wiersz['haslo'])&&($_SESSION['nazwisko']==$wiersz['nazwisko'])&&($wiersz['uprawnienia'] == "-1")){
+	if((isset($_SESSION['login']))
+		&& (md5($_SESSION['login']) == $wiersz['haslo'])
+		&& ($_SESSION['nazwisko'] == $wiersz['nazwisko'])
+		&& ($wiersz['uprawnienia'] == "-1")){
 
-
-		if(isset($_POST['data'])&&isset($_POST['godzina_poczatek'])&&isset($_POST['godzina_koniec'])){
+		if(isset($_POST['data']) && isset($_POST['godzina_poczatek']) 
+			&&isset($_POST['godzina_koniec'])){
 			$add = "INSERT INTO `wizyty`(`";
 						foreach($_POST as $key => $val){
 							if(end($_POST) == $val){
@@ -38,7 +41,8 @@
 		}
 
 
-		$query2 = "select imie, nazwisko from lekarze where id=\"".$_POST['id_lekarze']."\"";
+		$query2 = "select imie, nazwisko from lekarze where id=\""
+		 		  . $_POST['id_lekarza']."\"";
 
 		$wynik2 = mysqli_query($mysqli,$query2)
 		or die("Błąd zapytaniaa:". mysqli_error($mysqli));
@@ -49,18 +53,29 @@
 			echo "<h1>Dr. ". $row2['imie'] ." ". $row2['nazwisko']." - dostępne terminy</h1>";
 		}
 
-		$query = "select * from dzierzawy where id_lekarza=". $_POST['id_lekarze'] ." order by data asc, godzina_poczatek asc";
+		$query = "select id, data, godzina_poczatek, godzina_koniec, typ from dzierzawy 
+				  where id_lekarza=\"". $_POST['id_lekarza'] ."\" 
+				  union all 
+				  select id, data, godzina_poczatek, godzina_koniec, typ
+				  from wizyty where id_lekarza=\"". $_POST['id_lekarza'] ."\" 
+				  order by data asc, typ asc, godzina_poczatek asc";
+		
 		$wynik = mysqli_query($mysqli,$query)
-			or die("Błąd zapytania:". mysqli_error($mysqli));
+			or die("Błąd zapytaniaa:". mysqli_error($mysqli));
 
 			
 		if($wynik){ 
 			while($row = mysqli_fetch_assoc($wynik)){
-				print_r($row);
+				$rekord = $rekord = "<font color=green> Dnia ". $row['data'] ." czynne od:". $row['godzina_poczatek'] ." do:" . $row['godzina_koniec'] ."</font><br>";
+				if ($row['typ'] == "w") {  
+					$rekord = "<font color=\"red\">Zajęte od:". $row['godzina_poczatek'] ." do:"
+					. $row['godzina_koniec'] ."!</font><br>";
+				}
+				echo $rekord;
 			}
 		}
 
-		echo "Zarezerwuj wizytę:";
+		echo "<br>Zarezerwuj wizytę:";
 		$forma = "<form action=\"rezerwacja_wizyty.php\" method=\"POST\">";
 		$query = "SELECT * FROM `wizyty` WHERE 1";
 		$sukces = mysqli_query($mysqli,$query)
@@ -70,7 +85,7 @@
 				$row = mysqli_fetch_assoc($sukces);
 				foreach($row as $key => $obj){
 					if($key == 'id'){}
-					else if($key == 'id_lekarze') {
+					else if($key == 'id_lekarza') {
 						$forma.= "<input type=\"hidden\" name=\"". $key ."\" value=\"".$_POST['id_lekarza']."\" size=\"20\" maxlength=\"30\" /><br>";
 
 					}
@@ -78,6 +93,7 @@
 						$forma.= "<input type=\"hidden\" name=\"". $key ."\" value=\"".$wiersz['id']."\" size=\"20\" maxlength=\"30\" /><br>";
 
 					}
+					else if($key == 'typ') {}
 					else if($key == 'data') {
 						$forma.= $key . ": <input type=\"date\" name=\"". $key ."\" size=\"20\" maxlength=\"30\" /><br>";
 
